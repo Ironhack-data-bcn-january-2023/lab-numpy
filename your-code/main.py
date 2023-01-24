@@ -1,67 +1,80 @@
 #1. Import the NUMPY package under the name np.
+import numpy as np
 
 
-
-#2. Print the NUMPY version and the configuration.
-
+#2. Print the NUMPY version and the configuration
+print(np.__version__)
 
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
-
+import random
+a=np.random.random((2,3,5))
 
 
 #4. Print a.
-
+print(a)
 
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
+b=np.ones((5,2,3))
 
 
 #6. Print b.
-
+print(b)
 
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
+if b.size==a.size:
+        print(True)
+else:
+        print(False)
 
 
 
 #8. Are you able to add a and b? Why or why not?
-
-
-
+#print(a+b)
+#We can not add a and b as the shape is not the same
+print(a.shape)
+print(b.shape)
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
-
+c=b.transpose(1,2,0)
+print(c.shape)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
-
-
+d=a+c
+print(d)
+#the shape is the same so now we can operate with the two arrays!
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
-
-
-
+print(a)
+print(d)
+print(a==d)
+#as one is the combination of adding the first array + 1, not a single value is the same in both arrays
 
 #12. Multiply a and c. Assign the result to e.
-
+e=a*c
 
 
 #13. Does e equal to a? Why or why not?
-
+print(e==a)
+#as e is the multiplication of a * 1, all the values are the same
 
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
-
-
-
+d_max=np.max(d)
+print(d_max)
+d_min=np.min(d)
+print (d_min)
+d_mean=np.mean(d)
+print(d_mean)
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
+f=np.empty((2,3,5),dtype=object)
+print(f)
 
 
 
@@ -73,9 +86,32 @@ Assign 0 to the corresponding value(s) in f for d_min in d.
 Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
+
+
+f=np.where(d==d_mean, 50,f)
+f=np.where(d==d_max,100,f)
+f=np.where(d==d_min,0,f)
+f=np.where((d>d_min) & (d<d_mean), 25,f)
+f=np.where((d>d_mean)& (d<d_max), 75,f)
+print(f)
 """
 
 
+for i in range (f.shape[0]):
+        for j in range (f.shape[1]):
+                for k in range (f.shape[2]):
+                        if d[i][j][k]==d_mean:
+                                f[i][j][k]=50
+                        elif d[i][j][k]==d_min:
+                                f[i][j][k]=0 
+                        elif d[i][j][k]==d_max:
+                                f[i][j][k]=100
+                        elif d[i][j][k]>d_min and d[i][j][k]<d_mean:
+                                f[i][j][k]=25
+                        else:
+                                f[i][j][k]=75
+
+print (f)
 
 
 """
@@ -111,4 +147,27 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'D',  'D',  'D',  'D',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
+
+g=np.empty((2,3,5),dtype=object)
+g=np.where(d==d_mean, "C",g)
+g=np.where(d==d_max,"E",g)
+g=np.where(d==d_min,"A",g)
+g=np.where((d>d_min) & (d<d_mean), "B",g)
+g=np.where((d>d_mean)& (d<d_max), "C",g)
+print(g)
 """
+g=np.empty((2,3,5),dtype=object)
+for i in range (g.shape[0]):
+        for j in range (g.shape[1]):
+                for k in range (g.shape[2]):
+                        if d[i][j][k]==d_mean:
+                                g[i][j][k]="C"
+                        elif d[i][j][k]==d_min:
+                                g[i][j][k]="A"
+                        elif d[i][j][k]==d_max:
+                                g[i][j][k]="E"
+                        elif d[i][j][k]>d_min and d[i][j][k]<d_mean:
+                                g[i][j][k]="B"
+                        else:
+                                g[i][j][k]="D"
+print(g)
