@@ -135,6 +135,20 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
 
+for i in range(f.shape[0]):
+    for j in range(f.shape[1]):
+        for k in range(f.shape[2]):
+            if d[i, j ,k] == d_min:
+                f[i, j, k] = 0
+            elif d[i, j, k] > d_min and d[i, j, k] < d_mean:
+                f[i, j, k] = 25
+            elif d[i, j, k] == d_mean:
+                f[i, j, k] = 50
+            elif d[i, j, k] > d_mean and d[i, j, k] < d_max:
+                f[i, j, k] = 75
+            elif d[i, j, k] == d_max:
+                f[i, j, k] = 100
+                
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -148,3 +162,19 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+f = np.empty((2,3,5), dtype=str)
+
+for i in range(f.shape[0]):
+    for j in range(f.shape[1]):
+        for k in range(f.shape[2]):
+            if d[i, j ,k] == d_min:
+                f[i, j, k] = "A"
+            elif d[i, j, k] > d_min and d[i, j, k] < d_mean:
+                f[i, j, k] = "B"
+            elif d[i, j, k] == d_mean:
+                f[i, j, k] = "C"
+            elif d[i, j, k] > d_mean and d[i, j, k] < d_max:
+                f[i, j, k] = "D"
+            elif d[i, j, k] == d_max:
+                f[i, j, k] = "E"
