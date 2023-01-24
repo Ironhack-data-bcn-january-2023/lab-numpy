@@ -1,67 +1,72 @@
 #1. Import the NUMPY package under the name np.
-
+import numpy as np
 
 
 #2. Print the NUMPY version and the configuration.
 
-
+print(np.__version__)
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-
-
+b_1 = np.random.rand(2,3,5)
+a = np.random.random((2,3,5))
+c_1 = np.random.randn(2, 3, 5)
 #4. Print a.
 
+print(a)
 
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
 
-
+b = np.ones((5,2,3))
 
 #6. Print b.
-
-
+print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
 
-
-
+a.size == b.size
 
 #8. Are you able to add a and b? Why or why not?
+
+#NO, BECAUSE THEY DO NOT HAVE THE SAME SHAPE AND A ValueError will appear.
+c = a + b
 
 
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
-
+c = np.transpose(b, (1,2,0))
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
 
-
+#BECAUSE THEY  HAVE THE SAME SHAPE 
+d = a + c
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
 
-
+print(d)
 
 #12. Multiply a and c. Assign the result to e.
 
-
+e = a*c
 
 #13. Does e equal to a? Why or why not?
 
-
+# NO DOES NOT EQUAL BECAUSE a AND c ARE DIFFERENT ARRAYS EVEN THOUGH THEY HAVE THE SAME SHAPE 
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-
-
-
+d_max = np.max (d)
+d_min = np.min(d)
+d_mean = np.mean(d)
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
+ 
+f = np.empty(d.shape)
 
 
 
@@ -74,7 +79,17 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
-
+for i in np.nditer(d, op_flags=['readwrite']):
+    if i == d_min:
+        i[...] = 0
+    elif i == d_max:
+        i[...] = 100
+    elif i > d_min and i < d_mean:
+        i[...] = 25
+    elif i > d_mean and i < d_max:
+        i[...] = 75
+    elif i == d_mean:
+        i[...] = 50
 
 
 
@@ -98,7 +113,8 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print(d)
+print(f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
