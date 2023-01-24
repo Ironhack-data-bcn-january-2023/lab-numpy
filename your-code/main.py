@@ -1,69 +1,73 @@
 #1. Import the NUMPY package under the name np. 
-
-
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
-
-
+print(np.__version__)
+print(np.show_config())
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
-
-
+import random
+a = np.random.randint(100, size=(2,3,5))
+a2 = np.random.random(size=(2,3,5))
+a3 = np.random.rand(2,3,5)
 
 #4. Print a.
-
-
+print(a)
+print(a2)
+print(a3)
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
-
+b = np.ones((5,2,3))
 
 #6. Print b.
-
-
+print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
-
-
+a.size == b.size
 
 #8. Are you able to add a and b? Why or why not?
-
-
+print(a + b)
+# We cannot add a and b because the shape of each array is different 
+# -> we should transpose one of them to match with the other and be able to operate with 
+# both of them.
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
-
+c = b.transpose(1,2,0)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
-
-
+d = a + c
+# Now it works because both arrays have the very same size: 2x3x5 
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
-
-
-
+print(a)
+print(d)
 
 #12. Multiply a and c. Assign the result to e.
-
-
+e = a * c
 
 #13. Does e equal to a? Why or why not?
+print(e == a)
 
+if e.all() == a.all():
+    print("e equals a")
+else:
+    print("e is not the same as a")
 
-
+# All elements are the same since all a's are multiplied by one.
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
+d_max = d.max()
+d_min = d.min()
+d_mean = d.mean()
 
-
-
+print(d_max)
+print(d_min)
+print(d_mean)
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
-
-
+f = np.empty(shape=(2,3,5), dtype=object)
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
@@ -74,9 +78,20 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
+for dimension in range(d.shape[0]):
+    for row in range(d.shape[1]):
+        for element in range(d.shape[2]):
 
-
-
+            if d[dimension][row][element] == d_min:
+                f[dimension][row][element] = 0
+            elif d[dimension][row][element] == d_max:
+                f[dimension][row][element] = 100
+            elif d[dimension][row][element] == d_mean:
+                f[dimension][row][element] = 50
+            elif d[dimension][row][element] > d_mean and d[dimension][row][element] < d_max:
+                f[dimension][row][element] = 75
+            elif d[dimension][row][element] > d_min and d[dimension][row][element] < d_mean:
+                f[dimension][row][element] = 25
 
 """
 #17. Print d and f. Do you have your expected f?
@@ -98,7 +113,7 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print(f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
