@@ -27,10 +27,10 @@ print(b)
 #7. Do a and b have the same size? How do you prove that in Python code?
 
 if a.size==b.size:
-        print (True)
+    print (True)
 else:
-        print (False)
-pass
+    print (False)
+
 
 #8. Are you able to add a and b? Why or why not?
 print(" a and b can't be additioned because they have different shape")
@@ -83,23 +83,27 @@ Note: you don't have to use Numpy in this question.
 for index, num in enumerate(d):
     for index_2, num_2 in enumerate(num):
         for index_3, num_3 in enumerate(num_2):
-            if d[index, index_2, index_3] > d_min:
+            if d[index, index_2, index_3] > d_min and d[index, index_2, index_3] < d_mean:
                 f[index, index_2, index_3]= 25
             elif d[index, index_2, index_3]> d_mean and d[index, index_2, index_3]<d_max:
                 f[index, index_2, index_3] = 75
             elif d[index, index_2, index_3] == d_mean:
                 f[index, index_2, index_3] = 50
+            elif d[index, index_2, index_3] == d_min:
+                f[index, index_2, index_3] = 0
             elif d[index, index_2, index_3] == d_max:
-                d[index, index_2, index_3] = 100
+                f[index, index_2, index_3] = 100
 # OTHER METHOD
 # 
 for index, num in np.ndenumerate(d):
-    if d[index] >d_min:
+    if d[index] >d_min and d[index]<d_mean:
         f[index]=25
     elif d[index]>d_mean and d[index]<d_max:
         f[index]=75
     elif d[index] == d_mean:
         f[index] = 50
+    elif d[index] == d_min:
+        f[index] = 0
     elif d[index] == d_max:
         f[index] = 100  
 
@@ -139,3 +143,16 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+g= np.empty(shape=(2,3,5), dtype='object')
+for index, num in np.ndenumerate(f):
+    if f[index] == 0:
+        g[index]= "A"
+    elif f[index]==25:
+        g[index] = "B"
+    elif f[index] == 50:
+        g[index] = "C"
+    elif f[index] == 75:
+        g[index] = "D"
+    elif f[index] == 100:
+        g[index] = "E"
+        
