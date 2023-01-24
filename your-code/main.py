@@ -127,3 +127,19 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+# We just need to change the return value from numerical to string.
+for dimension in range(d.shape[0]):
+    for row in range(d.shape[1]):
+        for element in range(d.shape[2]):
+
+            if d[dimension][row][element] == d_min:
+                f[dimension][row][element] = "E"
+            elif d[dimension][row][element] == d_max:
+                f[dimension][row][element] = "A"
+            elif d[dimension][row][element] == d_mean:
+                f[dimension][row][element] = "C"
+            elif d[dimension][row][element] > d_mean and d[dimension][row][element] < d_max:
+                f[dimension][row][element] = "B"
+            elif d[dimension][row][element] > d_min and d[dimension][row][element] < d_mean:
+                f[dimension][row][element] = "D"
